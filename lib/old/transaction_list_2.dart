@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,11 +10,29 @@ class TransactionList extends StatelessWidget {
     TransactionList(this.transactions);
 
     @override
-    Widget build(BuildContext content) {
+    Widget build(BuildContext context) {
         return Container(
             height: 435,
-            child: ListView(
-                children: transactions.map((tx) {
+            child: transactions.isEmpty ? Column(
+                children: <Widget>[
+                    Text(
+                        'No Transactions Added Yet',
+                        style: Theme.of(context).textTheme.title,
+                    ),
+                    SizedBox(
+                        height: 30,
+                    ),
+                    Container(
+                        height: 200,
+                        child: Image.asset(
+                            'assets/img/waiting.png',
+                            fit: BoxFit.cover,
+                        ),
+                    )
+                ],
+            )
+            : ListView.builder(
+                itemBuilder: (ctx, index) {
                     return Card(
                         child: Row(
                             children: <Widget>[
@@ -26,17 +43,17 @@ class TransactionList extends StatelessWidget {
                                     ),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: Colors.purple,
+                                            color: Theme.of(context).primaryColorDark,
                                             width: 2,
                                         )
                                     ),
                                     padding: EdgeInsets.all(10),
                                     child: Text(
-                                        '${tx.amount}',
+                                        '${transactions[index].amount.toStringAsFixed(2)}',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                            color: Colors.purple
+                                            color: Theme.of(context).primaryColor
                                         ),
                                     ),
                                 ),
@@ -44,16 +61,12 @@ class TransactionList extends StatelessWidget {
                                     crossAxisAlignment:CrossAxisAlignment.start,
                                     children: <Widget>[
                                         Text(
-                                            tx.title,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black87,
-                                                fontSize: 16
-                                            )
+                                            transactions[index].title,
+                                            style: Theme.of(context).textTheme.title,
                                         ),
                                         Text(
                                             // DateFormat('MM/dd/yyyy HH:mm').format(tx.date),
-                                            DateFormat.yMMMd().format(tx.date),
+                                            DateFormat.yMMMd().format(transactions[index].date),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.grey
@@ -64,7 +77,8 @@ class TransactionList extends StatelessWidget {
                             ],
                         ),
                     );
-                }).toList(),
+                },
+                itemCount: transactions.length,
             )
         );
     }
