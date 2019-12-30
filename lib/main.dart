@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './widgets/chart.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+    ]);
+    runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
     @override
@@ -51,8 +58,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
     final List<Transaction> _userTransactions = [
-        /* Transaction(id: 't1', title: 'Icon X', amount: 500, date: DateTime.now()),
-        Transaction(id: 't2', title: 'Nike Slides', amount: 110, date: DateTime.now()) */
+        Transaction(id: 't1', title: 'Icon X', amount: 500, date: DateTime.now()),
+        Transaction(id: 't2', title: 'Nike Slides', amount: 110, date: DateTime.now()),
+        Transaction(id: 't3', title: 'Shoes', amount: 340, date: DateTime.now()),
+        Transaction(id: 't4', title: 'Watch Strap', amount: 40, date: DateTime.now()),
+        Transaction(id: 't5', title: 'Headphones', amount: 540, date: DateTime.now()),
+        Transaction(id: 't6', title: 'Hoodies', amount: 140, date: DateTime.now()),
+        Transaction(id: 't7', title: 'Sweatpants', amount: 90, date: DateTime.now()),
     ];
 
     List<Transaction> get _recentTransactions {
@@ -98,18 +110,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     @override
     Widget build(BuildContext context) {
+        final appBar = AppBar(
+            title: Text('Expense Planner'),
+            actions: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.add),
+                    color: Colors.white,
+                    onPressed: () => _startAddNewTransaction(context),
+                    tooltip: 'Add New Transaction',
+                )
+            ],
+        );
+
         return Scaffold(
-            appBar: AppBar(
-                title: Text('Expense Planner'),
-                actions: <Widget>[
-                    IconButton(
-                        icon: Icon(Icons.add),
-                        color: Colors.white,
-                        onPressed: () => _startAddNewTransaction(context),
-                        tooltip: 'Add New Transaction',
-                    )
-                ],
-            ),
+            appBar: appBar,
             body: SingleChildScrollView(
                 child: Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
@@ -123,8 +137,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 elevation: 5,
                             ),
                         ), */
-                        Chart(_recentTransactions),
-                        TransactionList(_userTransactions, _deleteTransactions)
+                        Container(
+                            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+                            child: Chart(_recentTransactions),
+                        ),
+                        Container(
+                            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+                            child: TransactionList(_userTransactions, _deleteTransactions),
+                        )
                     ],
                 ),
             ),
