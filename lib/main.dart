@@ -186,19 +186,19 @@ class _MyHomePageState extends State<MyHomePage> {
         );
 
         return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
-            navigationBar: appBar,
-        )
-        : Scaffold(
-            appBar: appBar,
-            body: pageBody,
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Platform.isIOS ? FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () => _startAddNewTransaction(context),
+            ? CupertinoPageScaffold(
+                child: pageBody,
+                navigationBar: appBar,
             )
-            : Container(),
-        );
+            : Scaffold(
+                appBar: appBar,
+                body: pageBody,
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                floatingActionButton: Platform.isIOS ? FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context),
+                )
+                : Container(),
+            );
     }
 }
