@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,16 +9,43 @@ class NewTransaction extends StatefulWidget {
     // create a variable to pass as a constructor which will be used as a ref to the addNexTransaction function
     final Function addNewTxHandler;
 
-    NewTransaction(this.addNewTxHandler);
+    NewTransaction(this.addNewTxHandler) {
+        // print('Constructor NewTransaction Widget');
+    }
 
     @override
-    _NewTransactionState createState() => _NewTransactionState();
+    _NewTransactionState createState() {
+        // print('createState NewTransaction Widget');
+        return _NewTransactionState();
+    }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
     final _titleController = TextEditingController();
     final _amountController = TextEditingController();
     DateTime _selectedDate;
+
+    _NewTransactionState() {
+        // print('Constructor NewTransaction State');
+    }
+
+    @override
+    void initState() {
+        print('initState');
+        super.initState(); // use the super keyword to refer to the parent object/state
+    }
+
+    @override
+    // this is a method that checks if the widget attached to the state changes
+    void didUpdateWidget(NewTransaction oldWidget) {
+        print('didUpdateWidget');
+        super.didUpdateWidget(oldWidget);
+    }
+
+    @override
+    void dispose() {
+        super.dispose();
+    }
 
     void _submitData () {
 
