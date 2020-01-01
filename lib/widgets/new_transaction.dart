@@ -9,9 +9,10 @@ class NewTransaction extends StatefulWidget {
     // create a variable to pass as a constructor which will be used as a ref to the addNexTransaction function
     final Function addNewTxHandler;
 
-    NewTransaction(this.addNewTxHandler) {
-        // print('Constructor NewTransaction Widget');
-    }
+    NewTransaction(this.addNewTxHandler);
+    /* NewTransaction(this.addNewTxHandler) {
+		print('Constructor NewTransaction Widget');
+    } */
 
     @override
     _NewTransactionState createState() {
@@ -25,9 +26,9 @@ class _NewTransactionState extends State<NewTransaction> {
     final _amountController = TextEditingController();
     DateTime _selectedDate;
 
-    _NewTransactionState() {
-        // print('Constructor NewTransaction State');
-    }
+    /* _NewTransactionState() {
+        print('Constructor NewTransaction State');
+    } */
 
     @override
     void initState() {
